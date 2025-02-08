@@ -1,6 +1,5 @@
 package br.edu.ifba.demo.backend.api.controller;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -87,6 +86,4 @@ public class UsuarioController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-
 }

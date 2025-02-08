@@ -34,11 +34,9 @@ public class UsuarioDTO implements Serializable {
 		// return clientes.stream().map( Cliente :: converter).collect(Collectors.toList());
 	}
 	
-	
 	public UsuarioDTO() {
 		super();
 	}
-	
 	
 	public UsuarioDTO(Long id_usuario, String login, String senha) {
 		super();
@@ -76,21 +74,17 @@ public class UsuarioDTO implements Serializable {
 		this.senha = senha;
 	}
 
-
 	public Timestamp getCreate_at() {
 		return create_at;
 	}
-
 
 	public Timestamp getLast_login() {
 		return last_login;
 	}
 
-
 	public void setCreate_at(Timestamp create_at) {
 		this.create_at = create_at;
 	}
-
 
 	public void setLast_login(Timestamp last_login) {
 		this.last_login = last_login;

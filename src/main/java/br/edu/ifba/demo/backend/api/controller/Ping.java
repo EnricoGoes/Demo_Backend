@@ -12,5 +12,4 @@ public class Ping {
 	public String ping() {
 		return "PONG";
 	}
-
 }

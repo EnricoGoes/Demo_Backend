@@ -3,6 +3,7 @@ package br.edu.ifba.demo.backend.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,10 +67,26 @@ public class LivroController {
         }
     }
     //Método para atualizar um livro
-    @PostMapping("/update")
-    public ResponseEntity<LivroModel> updateLivro(@RequestBody LivroModel livro) {
-        LivroModel updatedLivro = livroRepository.save(livro);
-        return new ResponseEntity<LivroModel>(updatedLivro, HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<LivroDTO> atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroAtualizado) {
+    return livroRepository.findById(id)
+        .map(livroExistente -> {
+            livroExistente.setTitulo(livroAtualizado.getTitulo());
+            livroExistente.setAutor(livroAtualizado.getAutor());
+            livroExistente.setEditora(livroAtualizado.getEditora());
+            livroExistente.setAnoPublicacao(livroAtualizado.getAnoPublicacao());
+            livroExistente.setGenero(null); // Tratar adequadamente se necessário
+            livroExistente.setIsbn(livroAtualizado.getIsbn());
+            livroExistente.setNumPaginas(livroAtualizado.getNumPaginas());
+            livroExistente.setSinopse(livroAtualizado.getSinopse());
+            livroExistente.setIdioma(livroAtualizado.getIdioma());
+            livroExistente.setDataCadastro(livroAtualizado.getDataCadastro());
+            livroExistente.setPreco(livroAtualizado.getPreco());
+
+            LivroModel livroSalvo = livroRepository.save(livroExistente);
+            return ResponseEntity.ok(LivroDTO.converter(livroSalvo));
+        })
+        .orElseGet(() -> ResponseEntity.notFound().build());
     }
     //Método para deletar um livro
     @DeleteMapping("/{id}")

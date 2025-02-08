@@ -90,8 +90,4 @@ public class UsuarioModel {
 	// public Timestamp getLastLogin() {
 	// 	return this.last_login;
 	// }
-	
-	
-	
-	
 }

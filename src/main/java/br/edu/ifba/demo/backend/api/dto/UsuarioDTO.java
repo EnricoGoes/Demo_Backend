@@ -40,7 +40,6 @@ public class UsuarioDTO implements Serializable {
 	}
 	
 	
-	
 	public UsuarioDTO(Long id_usuario, String login, String senha) {
 		super();
 		this.id_usuario = id_usuario;
@@ -96,6 +95,4 @@ public class UsuarioDTO implements Serializable {
 	public void setLast_login(Timestamp last_login) {
 		this.last_login = last_login;
 	}
-
-	
 }

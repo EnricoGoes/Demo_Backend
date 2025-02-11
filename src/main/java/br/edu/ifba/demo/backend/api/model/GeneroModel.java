@@ -1,4 +1,5 @@
 package br.edu.ifba.demo.backend.api.model;
+
 import lombok.Data;
 import jakarta.persistence.*;
 

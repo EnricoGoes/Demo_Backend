@@ -19,10 +19,10 @@ public class UsuarioModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
 	private Long id_usuario;
-	
+
 	@Column(name = "login", nullable = false, unique = true)
 	private String login;
-	
+
 	@Column(name = "senha", nullable = false)
 	private String senha;
 
@@ -31,7 +31,7 @@ public class UsuarioModel {
 
 	@Column(name = "last_login", nullable = true)
 	private Timestamp last_login;
-    
+
 	public UsuarioModel() {
 		super();
 	}
@@ -52,42 +52,42 @@ public class UsuarioModel {
 	}
 
 	// public Long getId_usuario() {
-	// 	return id_usuario;
+	// return id_usuario;
 	// }
 
 	// public void setId_usuario(Long id_usuario) {
-	// 	this.id_usuario = id_usuario;
+	// this.id_usuario = id_usuario;
 	// }
 
 	// public String getLogin() {
-	// 	return login;
+	// return login;
 	// }
 
 	// public void setLogin(String login) {
-	// 	this.login = login;
+	// this.login = login;
 	// }
 
 	// public String getSenha() {
-	// 	return senha;
+	// return senha;
 	// }
 
 	// public void setSenha(String senha) {
-	// 	this.senha = senha;
+	// this.senha = senha;
 	// }
 
 	// public void setCreateAt(Timestamp value) {
-	// 	this.create_at = value;
+	// this.create_at = value;
 	// }
 
 	// public Timestamp getCreateAt() {
-	// 	return this.create_at;
+	// return this.create_at;
 	// }
 
 	// public void setLastLogin(Timestamp value) {
-	// 	this.last_login = value;
+	// this.last_login = value;
 	// }
 
 	// public Timestamp getLastLogin() {
-	// 	return this.last_login;
+	// return this.last_login;
 	// }
 }

@@ -26,21 +26,24 @@ import br.edu.ifba.demo.backend.api.dto.LivroDTO;
 @RequestMapping("/livro")
 public class LivroController {
 
-	@Autowired
+    @Autowired
     private LivroRepository livroRepository;
-	//Método para adicionar um novo livro
+
+    // Método para adicionar um novo livro
     @PostMapping
     public ResponseEntity<LivroModel> addLivro(@RequestBody LivroModel livro) {
         LivroModel savedLivro = livroRepository.save(livro);
         return new ResponseEntity<LivroModel>(savedLivro, HttpStatus.CREATED);
     }
-    //Método para listar todos os livros
+
+    // Método para listar todos os livros
     @GetMapping("/listall")
     public List<LivroModel> listall() {
         var livros = livroRepository.findAll();
         return livros;
     }
-    //Método para buscar um livro pelo id
+
+    // Método para buscar um livro pelo id
     @GetMapping("/getById/{id}")
     public LivroModel getById(@PathVariable("id") Long id) {
         Optional<LivroModel> livro = livroRepository.findById(id);
@@ -48,14 +51,16 @@ public class LivroController {
             return livro.get();
         return null;
     }
-    //Método para buscar um livro pelo isbn
+
+    // Método para buscar um livro pelo isbn
     @GetMapping("/getByIsbn/{isbn}")
     public ResponseEntity<LivroDTO> buscarPorISBN(@PathVariable String isbn) {
         LivroModel livro = livroRepository.findByIsbn(isbn);
         return (livro != null) ? ResponseEntity.ok(LivroDTO.converter(livro))
-                               : ResponseEntity.notFound().build();
+                : ResponseEntity.notFound().build();
     }
-    //Método para buscar um livro pelo titulo	
+
+    // Método para buscar um livro pelo titulo
     @GetMapping("/getByTitulo/{titulo}")
     public ResponseEntity<List<LivroDTO>> getbyTitulo(@PathVariable("titulo") String titulo) {
         List<LivroModel> livros = livroRepository.findByTitulo(titulo);
@@ -66,29 +71,31 @@ public class LivroController {
             return ResponseEntity.ok(livrosDTO);
         }
     }
-    //Método para atualizar um livro
+
+    // Método para atualizar um livro
     @PutMapping("/{id}")
     public ResponseEntity<LivroDTO> atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroAtualizado) {
-    return livroRepository.findById(id)
-        .map(livroExistente -> {
-            livroExistente.setTitulo(livroAtualizado.getTitulo());
-            livroExistente.setAutor(livroAtualizado.getAutor());
-            livroExistente.setEditora(livroAtualizado.getEditora());
-            livroExistente.setAnoPublicacao(livroAtualizado.getAnoPublicacao());
-            livroExistente.setGenero(null); // Tratar adequadamente se necessário
-            livroExistente.setIsbn(livroAtualizado.getIsbn());
-            livroExistente.setNumPaginas(livroAtualizado.getNumPaginas());
-            livroExistente.setSinopse(livroAtualizado.getSinopse());
-            livroExistente.setIdioma(livroAtualizado.getIdioma());
-            livroExistente.setDataCadastro(livroAtualizado.getDataCadastro());
-            livroExistente.setPreco(livroAtualizado.getPreco());
+        return livroRepository.findById(id)
+                .map(livroExistente -> {
+                    livroExistente.setTitulo(livroAtualizado.getTitulo());
+                    livroExistente.setAutor(livroAtualizado.getAutor());
+                    livroExistente.setEditora(livroAtualizado.getEditora());
+                    livroExistente.setAnoPublicacao(livroAtualizado.getAnoPublicacao());
+                    livroExistente.setGenero(null); // Tratar adequadamente se necessário
+                    livroExistente.setIsbn(livroAtualizado.getIsbn());
+                    livroExistente.setNumPaginas(livroAtualizado.getNumPaginas());
+                    livroExistente.setSinopse(livroAtualizado.getSinopse());
+                    livroExistente.setIdioma(livroAtualizado.getIdioma());
+                    livroExistente.setDataCadastro(livroAtualizado.getDataCadastro());
+                    livroExistente.setPreco(livroAtualizado.getPreco());
 
-            LivroModel livroSalvo = livroRepository.save(livroExistente);
-            return ResponseEntity.ok(LivroDTO.converter(livroSalvo));
-        })
-        .orElseGet(() -> ResponseEntity.notFound().build());
+                    LivroModel livroSalvo = livroRepository.save(livroExistente);
+                    return ResponseEntity.ok(LivroDTO.converter(livroSalvo));
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
-    //Método para deletar um livro
+
+    // Método para deletar um livro
     @DeleteMapping("/{id}")
     public ResponseEntity<LivroModel> deleteLivro(@PathVariable("id") Long id) {
         Optional<LivroModel> livro = livroRepository.findById(id);

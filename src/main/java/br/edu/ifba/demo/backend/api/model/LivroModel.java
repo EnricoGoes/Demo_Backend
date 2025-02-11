@@ -16,21 +16,21 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "livro")
 public class LivroModel {
-    
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_livro")
-    private Long idLivro;
-    
-    @Column(nullable = false)
-	private String titulo;
 
-	@Column(nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_livro")
+    private Long idLivro;
+
+    @Column(nullable = false)
+    private String titulo;
+
+    @Column(nullable = false)
     private String autor;
-    
+
     @Column(nullable = false)
     private String editora;
-    
+
     @Column(name = "ano_publicacao")
     private Integer anoPublicacao;
 
@@ -59,7 +59,8 @@ public class LivroModel {
     public LivroModel() {
     }
 
-    public LivroModel(Long idLivro, String titulo, String autor, String editora, Integer anoPublicacao, GeneroModel genero,
+    public LivroModel(Long idLivro, String titulo, String autor, String editora, Integer anoPublicacao,
+            GeneroModel genero,
             String isbn, Integer numPaginas, String sinopse, String idioma, LocalDateTime dataCadastro,
             Double preco) {
         this.idLivro = idLivro;

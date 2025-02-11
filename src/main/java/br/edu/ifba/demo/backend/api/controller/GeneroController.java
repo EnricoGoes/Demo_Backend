@@ -22,7 +22,7 @@ public class GeneroController {
     @Autowired
     private final GeneroRepository generoRepository;
 
-    //Método para adicionar um novo gênero
+    // Método para adicionar um novo gênero
     @PostMapping
     public ResponseEntity<GeneroDTO> addGenero(@RequestBody GeneroDTO generoDTO) {
         GeneroModel genero = new GeneroModel();
@@ -30,18 +30,21 @@ public class GeneroController {
         GeneroModel savedGenero = generoRepository.save(genero);
         return ResponseEntity.ok(GeneroDTO.converter(savedGenero));
     }
-    //Método para listar todos os gêneros
+
+    // Método para listar todos os gêneros
     @GetMapping("/listall")
     public List<GeneroDTO> listall() {
         var generos = generoRepository.findAll();
         return generos.stream().map(GeneroDTO::converter).collect(Collectors.toList());
     }
-    //Método para buscar um gênero pelo id
+
+    // Método para buscar um gênero pelo id
     @GetMapping("/{id}")
     public GeneroModel getById(@PathVariable("id") Long id) {
         return generoRepository.findById(id).orElse(null);
     }
-    //Método para atualizar um gênero por id
+
+    // Método para atualizar um gênero por id
     @PutMapping("/{id}")
     public ResponseEntity<GeneroModel> updateGenero(@PathVariable("id") Long id, @RequestBody GeneroDTO generoDTO) {
         GeneroModel genero = generoRepository.findById(id).orElse(null);
@@ -52,7 +55,8 @@ public class GeneroController {
         }
         return ResponseEntity.notFound().build();
     }
-    //Método para deletar um gênero por id
+
+    // Método para deletar um gênero por id
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGenero(@PathVariable("id") Long id) {
         GeneroModel genero = generoRepository.findById(id).orElse(null);

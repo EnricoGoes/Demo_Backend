@@ -16,28 +16,29 @@ public class UsuarioDTO implements Serializable {
 
 	public static UsuarioDTO converter(UsuarioModel usuarioModel) {
 		var usuario = new UsuarioDTO();
-		usuario.setId_usuario( usuarioModel.getId_usuario() );
-		usuario.setLogin( usuarioModel.getLogin() );
-		usuario.setSenha( usuarioModel.getSenha() );
-		usuario.setCreate_at( usuarioModel.getCreate_at() );
-		usuario.setLast_login( usuarioModel.getLast_login() );
+		usuario.setId_usuario(usuarioModel.getId_usuario());
+		usuario.setLogin(usuarioModel.getLogin());
+		usuario.setSenha(usuarioModel.getSenha());
+		usuario.setCreate_at(usuarioModel.getCreate_at());
+		usuario.setLast_login(usuarioModel.getLast_login());
 		return usuario;
 	}
-	
+
 	public static List<UsuarioDTO> converter(List<UsuarioModel> usuarios) {
-		List<UsuarioDTO> list=new ArrayList<UsuarioDTO>();
-		
+		List<UsuarioDTO> list = new ArrayList<UsuarioDTO>();
+
 		for (UsuarioModel model : usuarios) {
-			list.add( UsuarioDTO.converter(model)) ;
+			list.add(UsuarioDTO.converter(model));
 		}
 		return list;
-		// return clientes.stream().map( Cliente :: converter).collect(Collectors.toList());
+		// return clientes.stream().map( Cliente ::
+		// converter).collect(Collectors.toList());
 	}
-	
+
 	public UsuarioDTO() {
 		super();
 	}
-	
+
 	public UsuarioDTO(Long id_usuario, String login, String senha) {
 		super();
 		this.id_usuario = id_usuario;
@@ -52,7 +53,7 @@ public class UsuarioDTO implements Serializable {
 		this.create_at = create_at;
 		this.last_login = last_login;
 	}
-	
+
 	public Long getId_usuario() {
 		return id_usuario;
 	}
@@ -64,12 +65,15 @@ public class UsuarioDTO implements Serializable {
 	public String getLogin() {
 		return login;
 	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 	public String getSenha() {
 		return senha;
 	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}

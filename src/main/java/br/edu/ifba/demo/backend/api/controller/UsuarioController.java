@@ -21,9 +21,9 @@ import br.edu.ifba.demo.backend.api.model.UsuarioModel;
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {
-	
+
 	private UsuarioRepository usuRepository;
-	
+
 	public UsuarioController(UsuarioRepository usuRepository) {
 		super();
 		this.usuRepository = usuRepository;
@@ -33,7 +33,7 @@ public class UsuarioController {
 	public String teste() {
 		return "Testando Rota Usuario";
 	}
-	
+
 	// Método que retornar todos os usuarios do banco de dados
 	@GetMapping("/listall")
 	public List<UsuarioModel> listall() {
@@ -43,30 +43,30 @@ public class UsuarioController {
 
 	// Método que retornar o usuario associado ao ID passado como parametro
 	@GetMapping("/findById/{id}")
-    public UsuarioModel findById(@PathVariable("id") Long id) {
+	public UsuarioModel findById(@PathVariable("id") Long id) {
 		Optional<UsuarioModel> usuario = usuRepository.findById(id);
-		if ( usuario.isPresent() )
+		if (usuario.isPresent())
 			return usuario.get();
-        return null;
-    }
+		return null;
+	}
 
 	@PostMapping("login")
-    public ResponseEntity<UsuarioDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        Optional<UsuarioModel> usuario = usuRepository.findByLogin(loginRequestDTO.getLogin());
+	public ResponseEntity<UsuarioDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+		Optional<UsuarioModel> usuario = usuRepository.findByLogin(loginRequestDTO.getLogin());
 		boolean isAuthorized = usuario.isPresent() && usuario.get().getSenha().equals(loginRequestDTO.getSenha());
 		if (isAuthorized) {
 			UsuarioModel usuModel = usuario.get();
 			UsuarioDTO user = new UsuarioDTO(
-				usuModel.getId_usuario(), 
-				usuModel.getLogin(),
-				null,
-				usuModel.getCreate_at(),
-				usuModel.getLast_login());
+					usuModel.getId_usuario(),
+					usuModel.getLogin(),
+					null,
+					usuModel.getCreate_at(),
+					usuModel.getLast_login());
 			return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
+		} else {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-    }
+		}
+	}
 
 	// Método para adicionar um novo usuário
 	@PostMapping
@@ -78,7 +78,7 @@ public class UsuarioController {
 	@DeleteMapping("/{id_usario}")
 	public ResponseEntity<UsuarioModel> deleteUsuario(@PathVariable Long id_usario) {
 		Optional<UsuarioModel> usuario = usuRepository.findById(id_usario);
-		
+
 		if (usuario.isPresent()) {
 			usuRepository.delete(usuario.get());
 			return new ResponseEntity<>(usuario.get(), HttpStatus.OK);

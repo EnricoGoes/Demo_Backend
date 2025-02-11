@@ -1,4 +1,5 @@
 package br.edu.ifba.demo.backend.api.dto;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,24 +24,23 @@ public class LivroDTO implements Serializable {
     private String idioma;
     private LocalDateTime dataCadastro;
     private Double preco;
-    
+
     public static LivroDTO converter(LivroModel livroModel) {
         return new LivroDTO(
-            livroModel.getIdLivro(), 
-            livroModel.getTitulo(), 
-            livroModel.getAutor(), 
-            livroModel.getEditora(),
-            livroModel.getAnoPublicacao(), 
-            livroModel.getGenero() != null ? livroModel.getGenero().getGeneroNome() : null,
-            livroModel.getIsbn(),
-            livroModel.getNumPaginas(), 
-            livroModel.getSinopse(), 
-            livroModel.getIdioma(),
-            livroModel.getDataCadastro(), 
-            livroModel.getPreco()
-        );
+                livroModel.getIdLivro(),
+                livroModel.getTitulo(),
+                livroModel.getAutor(),
+                livroModel.getEditora(),
+                livroModel.getAnoPublicacao(),
+                livroModel.getGenero() != null ? livroModel.getGenero().getGeneroNome() : null,
+                livroModel.getIsbn(),
+                livroModel.getNumPaginas(),
+                livroModel.getSinopse(),
+                livroModel.getIdioma(),
+                livroModel.getDataCadastro(),
+                livroModel.getPreco());
     }
-    
+
     public static List<LivroDTO> converter(List<LivroModel> livros) {
         return livros.stream().map(LivroDTO::converter).collect(Collectors.toList());
     }

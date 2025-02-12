@@ -74,25 +74,29 @@ public class LivroController {
 
     // Método para atualizar um livro
     @PutMapping("/{id}")
-    public ResponseEntity<LivroDTO> atualizarLivro(@PathVariable Long id, @RequestBody LivroDTO livroAtualizado) {
-        return livroRepository.findById(id)
-                .map(livroExistente -> {
-                    livroExistente.setTitulo(livroAtualizado.getTitulo());
-                    livroExistente.setAutor(livroAtualizado.getAutor());
-                    livroExistente.setEditora(livroAtualizado.getEditora());
-                    livroExistente.setAnoPublicacao(livroAtualizado.getAnoPublicacao());
-                    livroExistente.setGenero(null); // Tratar adequadamente se necessário
-                    livroExistente.setIsbn(livroAtualizado.getIsbn());
-                    livroExistente.setNumPaginas(livroAtualizado.getNumPaginas());
-                    livroExistente.setSinopse(livroAtualizado.getSinopse());
-                    livroExistente.setIdioma(livroAtualizado.getIdioma());
-                    livroExistente.setDataCadastro(livroAtualizado.getDataCadastro());
-                    livroExistente.setPreco(livroAtualizado.getPreco());
+    public ResponseEntity<LivroModel> atualizarLivro(@PathVariable Long id, @RequestBody LivroModel livroAtualizado) {
+        Optional<LivroModel> optionalLivro = livroRepository.findById(id);
 
-                    LivroModel livroSalvo = livroRepository.save(livroExistente);
-                    return ResponseEntity.ok(LivroDTO.converter(livroSalvo));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (optionalLivro.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        LivroModel livroExistente = optionalLivro.get();
+        livroExistente.setTitulo(livroAtualizado.getTitulo());
+        livroExistente.setAutor(livroAtualizado.getAutor());
+        livroExistente.setGenero(livroAtualizado.getGenero());
+        livroExistente.setIdioma(livroAtualizado.getIdioma());
+        livroExistente.setPreco(livroAtualizado.getPreco());
+        livroExistente.setNumPaginas(livroAtualizado.getNumPaginas());
+        livroExistente.setDataCadastro(livroAtualizado.getDataCadastro());
+        livroExistente.setEditora(livroAtualizado.getEditora());
+        livroExistente.setAnoPublicacao(livroAtualizado.getAnoPublicacao());
+        livroExistente.setIsbn(livroAtualizado.getIsbn());
+        livroExistente.setSinopse(livroAtualizado.getSinopse());
+
+        LivroModel livroSalvo = livroRepository.save(livroExistente);
+
+        return ResponseEntity.ok(livroSalvo);
     }
 
     // Método para deletar um livro

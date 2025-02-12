@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface LivroRepository extends JpaRepository<LivroModel, Long> {
-	LivroModel findByIsbn(String isbn);
+    LivroModel findByIsbn(String isbn);
+
     List<LivroModel> findByTitulo(String titulo);
 }

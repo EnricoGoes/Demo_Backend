@@ -7,7 +7,7 @@ import br.edu.ifba.demo.backend.api.model.UsuarioModel;
 import java.util.Optional;
 
 @Repository
-public interface UsuarioRepository 
-	extends JpaRepository<UsuarioModel, Long> {
+public interface UsuarioRepository
+		extends JpaRepository<UsuarioModel, Long> {
 	Optional<UsuarioModel> findByLogin(String login);
 }
